@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+import "core.proto";
+import "options.proto";
+import "client.proto";
+
+import "google/protobuf/empty.proto";
+
+service MultiLanguageContract {
+
+    //rpc Initialize (google.protobuf.Empty) returns (google.protobuf.Empty) { }
+    rpc Get (GetInput) returns (GetReturn) { }
+    rpc Set (SetInput) returns (google.protobuf.Empty) { }
+    rpc SetContract (SetContractInput) returns (google.protobuf.Empty) { }
+    rpc GetContract (GetContractInput) returns (GetContractOutput) { }
+}
+
+// a custom message, used as the return type of the Hello action
+message InitializeInput {
+    string flag = 1;
+}
+
+message GetInput {
+    string className = 1;
+}
+message SetInput {
+    string className = 1;
+    string jsonString = 2;
+}
+// json string format of class
+message GetReturn {
+    string jsonString = 1;
+}
+// to store user address and class name
+message AddressName {
+    Address address = 1;
+    string className = 2;
+}
+// a list to store class names
+message NameList {
+    repeated GetInput nameList = 1;
+}
+// a list to store class json string
+message JsonStringList {
+    repeated GetReturn jsonStringList = 1;
+}
+
+message SetContractInput{
+    string paramsHash=1;
+    string paramsJson=2;
+}
+
+message SetContractKey {
+    string paramsHash=1;
+}
+
+message SetContractValue {
+    string paramsJson=1;
+}
+
+message GetContractInput{
+    string paramsHash=1;
+}
+
+message GetContractOutput{
+    string paramsJson=1;
+}
